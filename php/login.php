@@ -12,7 +12,7 @@ if($config == 'docker'){
 elseif($config == 'iut'){
     $ldapServer = "10.10.1.30";
     $ldapBaseDn = "dc=info,dc=iutmontp,dc=univ-montp2,dc=fr";
-    $ldap_port = 389;
+    $ldapPort = 389;
 }
 else{
     die('CONFIG environment variable not set (docker or local)');
