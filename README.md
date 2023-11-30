@@ -40,8 +40,8 @@ Simple 2 stack docker project to test LDAP authentication with PHP. It is possib
 5. Connect to the LDAP server with the following credentials:
 
     ```
-    Username: cn=admin,dc=example,dc=org
-    Password: admin
+    Username: admin
+    Password: password
     ```
         
 ## Configuration

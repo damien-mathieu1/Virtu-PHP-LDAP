@@ -22,6 +22,7 @@ $ldapConn = false;
 // User credentials
 $username = $_POST['username']; 
 $password = $_POST['password'];
+$usernameLdap="cn=".$username.",".$ldapBaseDn;
 
 // Connect to the LDAP server
 $ldapConn = ldap_connect($ldapServer, $ldapPort);
@@ -33,7 +34,7 @@ if (!$ldapConn) {
 ldap_set_option($ldapConn, LDAP_OPT_PROTOCOL_VERSION, 3);
 
 // Bind to the LDAP server with user credentials
-$ldapBind = ldap_bind($ldapConn, $username, $password);
+$ldapBind = ldap_bind($ldapConn, $usernameLdap, $password);
 if (!$ldapBind) {
     die('LDAP authentication failed');
 }
