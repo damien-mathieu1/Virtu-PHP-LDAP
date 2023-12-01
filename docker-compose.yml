@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  php:
+    image: pmietlicki/php-apache-ldap
+    ports:
+      - 8080:80
+    volumes:
+      - ./php:/var/www/html/
+    environment:
+      - CONFIG=docker
+  ldap:
+    image: osixia/openldap
+    environment:
+      - LDAP_ADMIN_PASSWORD=password
+      - LDAP_BASE_DN=dc=example,dc=com
+      - LDAP_DOMAIN=example.com
+      - LDAP_ORGANIZATION=Example
+   
