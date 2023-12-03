@@ -98,8 +98,8 @@ uidnumber: 1002
 userpassword: {MD5}ICy5YqxZB1uWSwcVLSNLcA==
 
 # Entry 10: cn=Steve Jobs,ou=users,dc=virtu,dc=org
-dn: cn=Steve Jobs,ou=users,dc=virtu,dc=org
-cn: Steve Jobs
+dn: cn=sjobs,ou=users,dc=virtu,dc=org
+cn: sjbos
 gidnumber: 500
 givenname: Steve
 homedirectory: /home/users/sjobs
@@ -109,4 +109,4 @@ objectclass: top
 sn: Jobs
 uid: sjobs
 uidnumber: 1001
-userpassword: {MD5}ICy5YqxZB1uWSwcVLSNLcA==
+userpassword: sjobs

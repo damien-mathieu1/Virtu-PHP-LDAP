@@ -9,7 +9,9 @@ services:
       - ./php:/var/www/html/
     environment:
       - CONFIG=docker
-
+    depends_on:
+      - keycloak
+      - ldap
   ldap:
     image: osixia/openldap
     environment:
