@@ -85,6 +85,11 @@ Simple 2 stack docker project to test LDAP authentication with PHP. It is possib
     ```
 - ldap://192.168.1.23:389
 
+- List all KeyCloak endpoints
+-     ```
+          http://localhost:8080/realms/virtu-corp/.well-known/openid-configuration
+      ```
+
 ## Contributors
 
 - [Damien Mathieu](https://github.com/damien-mathieu1)
