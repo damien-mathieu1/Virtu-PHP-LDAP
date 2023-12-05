@@ -26,6 +26,14 @@ curl -i -X POST "http://$KEYCLOAK_HOST_PORT/admin/realms" \
   -H "Content-Type: application/json" \
   -d '{"realm": "virtu-corp", "enabled": true}'
 
+echo "Creating iut realm"
+echo "=============="
+
+curl -i -X POST "http://$KEYCLOAK_HOST_PORT/admin/realms" \
+  -H "Authorization: Bearer $ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"realm": "virtu-corp-iut", "enabled": true}'
+
 echo "Creating client"
 echo "==============="
 
@@ -38,6 +46,17 @@ CLIENT_ID=$(curl -si -X POST "http://$KEYCLOAK_HOST_PORT/admin/realms/virtu-corp
 echo "CLIENT_ID=$CLIENT_ID"
 echo
 
+
+echo "Creating client iut"
+echo "==============="
+
+CLIENT_ID_IUT=$(curl -si -X POST "http://$KEYCLOAK_HOST_PORT/admin/realms/virtu-corp-iut/clients" \
+  -H "Authorization: Bearer $ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"clientId": "ldap-service", "directAccessGrantsEnabled": true,"redirectUris": ["http://localhost:80/index.php"], "webOrigins": ["http://localhost:8081"], "publicClient": true}' \
+  | grep -oE '[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}')
+
+
 echo "Getting client secret"
 echo "====================="
 
@@ -45,6 +64,15 @@ SIMPLE_SERVICE_CLIENT_SECRET=$(curl -s -X POST "http://$KEYCLOAK_HOST_PORT/admin
   -H "Authorization: Bearer $ADMIN_TOKEN" | jq -r '.value')
 
 echo "SIMPLE_SERVICE_CLIENT_SECRET=$SIMPLE_SERVICE_CLIENT_SECRET"
+echo
+
+echo "Getting client secret iut"
+echo "====================="
+
+SIMPLE_SERVICE_CLIENT_SECRET_IUT=$(curl -s -X POST "http://$KEYCLOAK_HOST_PORT/admin/realms/virtu-corp-iut/clients/$CLIENT_ID_IUT/client-secret" \
+  -H "Authorization: Bearer $ADMIN_TOKEN" | jq -r '.value')
+
+echo "SIMPLE_SERVICE_CLIENT_SECRET_IUT=$SIMPLE_SERVICE_CLIENT_SECRET_IUT"
 echo
 
 echo "Creating client role"
@@ -59,6 +87,20 @@ ROLE_ID=$(curl -s "http://$KEYCLOAK_HOST_PORT/admin/realms/virtu-corp/clients/$C
   -H "Authorization: Bearer $ADMIN_TOKEN" | jq -r '.[0].id')
 
 echo "ROLE_ID=$ROLE_ID"
+echo
+
+echo "Creating client role iut"
+echo "===================="
+
+curl -i -X POST "http://$KEYCLOAK_HOST_PORT/admin/realms/virtu-corp-iut/clients/$CLIENT_ID_IUT/roles" \
+-H "Authorization: Bearer $ADMIN_TOKEN" \
+-H "Content-Type: application/json" \
+-d '{"name": "USER"}'
+
+ROLE_ID_IUT=$(curl -s "http://$KEYCLOAK_HOST_PORT/admin/realms/virtu-corp-iut/clients/$CLIENT_ID_IUT/roles" \
+  -H "Authorization: Bearer $ADMIN_TOKEN" | jq -r '.[0].id')
+
+echo "ROLE_ID_IUT=$ROLE_ID_IUT"
 echo
 
 echo "Configuring LDAP"
@@ -77,6 +119,27 @@ echo "Sync LDAP Users"
 echo "==============="
 
 curl -i -X POST "http://$KEYCLOAK_HOST_PORT/admin/realms/virtu-corp/user-storage/$LDAP_ID/sync?action=triggerFullSync" \
+  -H "Authorization: Bearer $ADMIN_TOKEN"
+
+echo
+echo
+
+echo "Configuring LDAP IUT"
+echo "================"
+
+LDAP_ID_IUT=$(curl -si -X POST "http://$KEYCLOAK_HOST_PORT/admin/realms/virtu-corp-iut/components" \
+  -H "Authorization: Bearer $ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '@ldap-seed/ldap-config-iut.json' \
+  | grep -oE '[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}')
+
+echo "LDAP_ID_IUT=$LDAP_ID_IUT"
+echo
+
+echo "Sync LDAP Users IUT"
+echo "==============="
+
+curl -i -X POST "http://$KEYCLOAK_HOST_PORT/admin/realms/virtu-corp-iut/user-storage/$LDAP_ID/sync?action=triggerFullSync" \
   -H "Authorization: Bearer $ADMIN_TOKEN"
 
 echo

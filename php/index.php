@@ -8,6 +8,7 @@
   
   <input type="submit" value="Login">
 </form>
+
 <?php
 $config = getenv('CONFIG');
 
@@ -18,11 +19,11 @@ if ($config == 'docker') {
 }
 elseif ($config == 'iut') {
   $keycloakUrl = 'http://localhost:8080';
-  $keycloakRealm = 'virtu-corp';
+  $keycloakRealm = 'virtu-corp-iut';
   $keycloakClientId = 'ldap-service';
 }
 else {
-  die('CONFIG environment variable not set (docker or local)');
+  die('CONFIG environment variable not set (docker or iut)');
 }
 
 echo '<button>';
