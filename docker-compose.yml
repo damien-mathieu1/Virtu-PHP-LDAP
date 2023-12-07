@@ -70,3 +70,16 @@ services:
       - "6443:443"
     depends_on:
       - ldap
+  
+  backend:
+    image: node:latest
+    container_name: backend
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    ports:
+      - "3000:3000"
+    command: node api.js
+    depends_on:
+      - keycloak
+      - mysql
