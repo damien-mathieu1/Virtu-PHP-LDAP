@@ -6,7 +6,7 @@
 $config = getenv('CONFIG');
 if($config == 'docker'){
     $ldapServer = 'ldap';
-    $ldapBaseDn = "dc=example,dc=com";
+    $ldapBaseDn = "dc=virtu,dc=org";
     $ldapPort = 389;
 }
 elseif($config == 'iut'){
@@ -22,7 +22,12 @@ $ldapConn = false;
 // User credentials
 $username = $_POST['username']; 
 $password = $_POST['password'];
-$usernameLdap="cn=".$username.",".$ldapBaseDn;
+if ($username == "admin") {
+    $usernameLdap="cn=".$username.",".$ldapBaseDn;
+}
+else {
+    $usernameLdap="cn=".$username.",ou=users,".$ldapBaseDn;
+}
 
 // Connect to the LDAP server
 $ldapConn = ldap_connect($ldapServer, $ldapPort);
