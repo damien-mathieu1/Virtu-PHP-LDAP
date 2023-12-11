@@ -59,54 +59,54 @@ ou: users
 dn: cn=mathieud,ou=users,dc=virtu,dc=org
 cn: mathieud
 gidnumber: 500
-givenname: damien
-homedirectory: /home/users/bgates
+givenname: Damien
+homedirectory: /home/users/mathieud
 objectclass: inetOrgPerson
 objectclass: posixAccount
 objectclass: top
-sn: gates
+sn: Mathieu
 uid: mathieud
 uidnumber: 1000
 userpassword: mathieud
 
-# Entry 8: cn=Ivan Franchin,ou=users,dc=virtu,dc=org
-dn: cn=Ivan Franchin,ou=users,dc=virtu,dc=org
-cn: Ivan Franchin
+# Entry 8: cn=melotteq,ou=users,dc=virtu,dc=org
+dn: cn=melotteq,ou=users,dc=virtu,dc=org
+cn: melotteq
 gidnumber: 501
-givenname: Ivan
-homedirectory: /home/users/ifranchin
+givenname: Quentin
+homedirectory: /home/users/melotteq
 objectclass: inetOrgPerson
 objectclass: posixAccount
 objectclass: top
-sn: Franchin
-uid: ifranchin
+sn: Melotte
+uid: melotteq
 uidnumber: 1003
-userpassword: {MD5}ICy5YqxZB1uWSwcVLSNLcA==
+userpassword: melotteq
 
-# Entry 9: cn=Mark Cuban,ou=users,dc=virtu,dc=org
-dn: cn=Mark Cuban,ou=users,dc=virtu,dc=org
-cn: Mark Cuban
+# Entry 9: cn=afonsoa,ou=users,dc=virtu,dc=org
+dn: cn=alexandrea,ou=users,dc=virtu,dc=org
+cn: afonsoa
 gidnumber: 500
-givenname: Mark
-homedirectory: /home/users/mcuban
+givenname: Alexandre
+homedirectory: /home/users/afonsoa
 objectclass: inetOrgPerson
 objectclass: posixAccount
 objectclass: top
-sn: Cuban
-uid: mcuban
+sn: Afonso
+uid: afonsoa
 uidnumber: 1002
-userpassword: {MD5}ICy5YqxZB1uWSwcVLSNLcA==
+userpassword: afonsoa
 
-# Entry 10: cn=Steve Jobs,ou=users,dc=virtu,dc=org
-dn: cn=sjobs,ou=users,dc=virtu,dc=org
-cn: sjbos
+# Entry 10: cn=caronf,ou=users,dc=virtu,dc=org
+dn: cn=caronf,ou=users,dc=virtu,dc=org
+cn: caronf
 gidnumber: 500
-givenname: Steve
-homedirectory: /home/users/sjobs
+givenname: Florimond
+homedirectory: /home/users/caronf
 objectclass: inetOrgPerson
 objectclass: posixAccount
 objectclass: top
-sn: Jobs
-uid: sjobs
+sn: Caron
+uid: caronf
 uidnumber: 1001
-userpassword: sjobs
+userpassword: caronf
