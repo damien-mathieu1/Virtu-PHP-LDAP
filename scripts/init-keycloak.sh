@@ -147,38 +147,38 @@ echo
 echo "Get mathieud id"
 echo "============="
 
-BGATES_ID=$(curl -s "http://$KEYCLOAK_HOST_PORT/admin/realms/virtu-corp/users?username=mathieud" \
+MATHIEUD_ID=$(curl -s "http://$KEYCLOAK_HOST_PORT/admin/realms/virtu-corp/users?username=mathieud" \
   -H "Authorization: Bearer $ADMIN_TOKEN"  | jq -r '.[0].id')
 
-echo "BGATES_ID=$BGATES_ID"
+echo "MATHIEUD_ID=$MATHIEUD_ID"
 echo
 
-echo "Setting client role to bgates"
+echo "Setting client role to mathieud"
 echo "============================="
 
-curl -i -X POST "http://$KEYCLOAK_HOST_PORT/admin/realms/virtu-corp/users/$BGATES_ID/role-mappings/clients/$CLIENT_ID" \
+curl -i -X POST "http://$KEYCLOAK_HOST_PORT/admin/realms/virtu-corp/users/$MATHIEUD_ID/role-mappings/clients/$CLIENT_ID" \
   -H "Authorization: Bearer $ADMIN_TOKEN" \
   -H "Content-Type: application/json" \
   -d '[{"id":"'"$ROLE_ID"'","name":"USER"}]'
 
-echo "Get sjobs id"
+echo "Get afonsoa id"
 echo "============"
 
-SJOBS_ID=$(curl -s "http://$KEYCLOAK_HOST_PORT/admin/realms/virtu-corp/users?username=sjobs" \
+AFONSOA_ID=$(curl -s "http://$KEYCLOAK_HOST_PORT/admin/realms/virtu-corp/users?username=afonsoa" \
   -H "Authorization: Bearer $ADMIN_TOKEN"  | jq -r '.[0].id')
 
-echo "SJOBS_ID=$SJOBS_ID"
+echo "AFONSOA_ID=$AFONSOA_ID"
 echo
 
-echo "Setting client role to sjobs"
+echo "Setting client role to afonsoa"
 echo "============================"
 
-curl -i -X POST "http://$KEYCLOAK_HOST_PORT/admin/realms/virtu-corp/users/$SJOBS_ID/role-mappings/clients/$CLIENT_ID" \
+curl -i -X POST "http://$KEYCLOAK_HOST_PORT/admin/realms/virtu-corp/users/$AFONSOA_ID/role-mappings/clients/$CLIENT_ID" \
   -H "Authorization: Bearer $ADMIN_TOKEN" \
   -H "Content-Type: application/json" \
   -d '[{"id":"'"$ROLE_ID"'","name":"USER"}]'
 
-echo "Getting bgates access token"
+echo "Getting mathieud access token"
 echo "==========================="
 
 curl -s -X POST "http://$KEYCLOAK_HOST_PORT/realms/virtu-corp/protocol/openid-connect/token" \
@@ -190,13 +190,13 @@ curl -s -X POST "http://$KEYCLOAK_HOST_PORT/realms/virtu-corp/protocol/openid-co
   -d "client_id=ldap-service" | jq -r .access_token
 echo
 
-echo "Getting sjobs access token"
+echo "Getting afonsoa access token"
 echo "=========================="
 
 curl -s -X POST "http://$KEYCLOAK_HOST_PORT/realms/virtu-corp/protocol/openid-connect/token" \
   -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "username=sjobs" \
-  -d "password=sjobs" \
+  -d "username=afonsoa" \
+  -d "password=afonsoa" \
   -d "grant_type=password" \
   -d "client_secret=$SIMPLE_SERVICE_CLIENT_SECRET" \
   -d "client_id=ldap-service" | jq -r .access_token
