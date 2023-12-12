@@ -1,4 +1,4 @@
-# Project Name
+# PHP - KEYCLOAK - LDAP
 
 Simple 2 stack docker project to test LDAP authentication with PHP. It is possible to connect to two different LDAP servers which are: 
 - Docker LDAP (`CONFIG="docker"`)
@@ -29,52 +29,55 @@ Simple 2 stack docker project to test LDAP authentication with PHP. It is possib
 3. Build and run the Docker containers:
 
     ```bash
-    docker-compose up -d
+    ./init.sh
     ```
 
 4. Access the application in your browser:
 
-    ```
+    ```bash
     http://localhost:8080/index.php
     ```
-5. Connect to the admin LDAP server with the following credentials:
+5. Connect to the LDAP server with the following credentials:
 
     ```
+    ADMIN :
     Username: admin
     Password: password
+    
+    LIST OF USERS :
+    admin/password
+    mathieud/mathieud
+    caronf/caronf
+    afonsoa/afonsoa
+    melotteq/melotteq
     ```
-6. Populate the LDAP server with the following command:
-
-    ```bash
-    ./import-openldap-user.sh
-    ```
-7. When KeyCloak is running, you can access the admin panel with the following URL:
+6. When KeyCloak is running, you can access the admin panel with the following URL:
 
     ```
     http://localhost:8080
     ```
-8. Connect to the admin panel with the following credentials:
+7. Connect to the admin panel with the following credentials:
 
     ```
     Username: admin
     Password: admin
     ```
-9. Bind the LDAP server to KeyCloak with the following command:
+8. Bind the LDAP server to KeyCloak with the following command:
 
     ```bash
     ./init.sh
     ```
-10. Access KeyCloak LDAP SSO :
+9. Access KeyCloak LDAP SSO :
 - Go to http://localhost:80/index.php
 - Click on "Login with SSO button"
 - Login with credential : username : mathieud, password: mathieud
 - Then you should be logged in 
 
-11. Try API acces :
+10. Try API access :
 - On http://localhost:80/index.php
 - Click the public api button to get a callback from the api
 - Click on the private API button and you should get block from having a response
-- If you are logged the private API button should return the user with which you are authenticated  
+- If you are logged the private API button should return the user with which you are authenticated and the list of user registered in your keycloak instance
         
 ## Configuration
 
@@ -87,18 +90,6 @@ Simple 2 stack docker project to test LDAP authentication with PHP. It is possib
     - Docker LDAP (`CONFIG="docker"`)
     - IUT of Montpellier LDAP (`CONFIG="iut"`)
 - To chose the LDAP server, you have to change the `CONFIG` variable of the php stack in the `docker-compose.yml` file.
-
-## Tips
-- To fast run php script use the following command:
-    ```bash
-    docker  run -p 8080:8080 --rm -v $(pwd):$(pwd) php:8.2-cli php -S 0.0.0.0:8080  $(pwd)/index.php
-    ```
-- ldap://192.168.1.23:389
-
-- List all KeyCloak endpoints
--     ```
-          http://localhost:8080/realms/virtu-corp/.well-known/openid-configuration
-      ```
 
 ## Contributors
 
