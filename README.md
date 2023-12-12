@@ -62,18 +62,13 @@ Simple 2 stack docker project to test LDAP authentication with PHP. It is possib
     Username: admin
     Password: admin
     ```
-8. Bind the LDAP server to KeyCloak with the following command:
-
-    ```bash
-    ./init.sh
-    ```
-9. Access KeyCloak LDAP SSO :
+8. Access KeyCloak LDAP SSO :
 - Go to http://localhost:80/index.php
 - Click on "Login with SSO button"
 - Login with credential : username : mathieud, password: mathieud
 - Then you should be logged in 
 
-10. Try API access :
+9. Try API access :
 - On http://localhost:80/index.php
 - Click the public api button to get a callback from the api
 - Click on the private API button and you should get block from having a response
