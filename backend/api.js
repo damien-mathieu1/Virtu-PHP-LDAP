@@ -1,5 +1,13 @@
 const express = require("express");
 const jwt = require("jwt-decode");
+const dbconfig = {
+  host: "mysql",
+  user: "keycloak",
+  password: "password",
+  database: "keycloak",
+};
+const jsORM = require("js-hibernate");
+const session = jsORM.session(dbconfig);
 
 const app = express();
 const port = 3000;
@@ -43,7 +51,17 @@ app.get("/api/public", (req, res) => {
 });
 
 app.get("/api/private", authenticateToken, (req, res) => {
-  res.send("Private API route access with user " + stringify(req.user));
+  var sql = "select username from `USER_ENTITY`";
+  var query = session.executeSql(sql);
+
+  query
+    .then(function (result) {
+      res.send("Private API route access <h3>authenticated user :</h3> " + stringify(req.user) +"<br> <h3>list of users in keycloak :</h3>" + stringify(result));
+    })
+    .catch(function (error) {
+      res.send("Private API route access <h3>authenticated user :</h3>  " + stringify(req.user) + "<br> <h3>error :</h3>" + stringify(error));
+
+    });
 });
 
 app.listen(port, () => {

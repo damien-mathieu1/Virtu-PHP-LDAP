@@ -22,7 +22,7 @@ services:
       - 389:389
 
   mysql:
-    image: mysql
+    image: mysql:5.6
     container_name: mysql
     ports:
       - "3306:3306"
